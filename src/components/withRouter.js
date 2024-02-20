@@ -8,4 +8,4 @@ export const withRouter = (WrappedComponent) => (props) => {
   return <WrappedComponent {...props} params={params} navigate={navigate} />;
 };
 
-  export default withRouter;
+export default withRouter;
