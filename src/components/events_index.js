@@ -34,14 +34,6 @@ class EventsIndex extends Component {
   }
   
   render() {
-    const style = {
-      margin: 0,
-      top: 'auto',
-      right: 20,
-      bottom: 20,
-      left: 'auto',
-      position: 'fixed',
-    }
     return (
       <React.Fragment>
           <Fab href="/events/new" className="classes.fab"

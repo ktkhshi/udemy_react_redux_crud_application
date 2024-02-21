@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Field, reduxForm } from "redux-form";
-import { Link, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import DoneIcon from '@mui/icons-material/Done';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { postEvent } from "../actions";
 
@@ -16,10 +20,20 @@ class EventsNew extends Component {
     const { input, label, type, meta: { touched, error } } = field
   
     return (
-      <div>
-        <input {...input} placeholder={label} type={type} />
-        {touched && error && <span>{error}</span>}
-      </div>
+      <TextField
+        error={(touched && error) ? true : false}
+        id="filled-error-helper-text" 
+        label={label}
+        type={type}
+        helperText={touched && error}
+        {...input}
+        fullWidth={ true }
+        sx = {{ 
+          margin : 1, 
+          fontSize : 20
+        }}
+        variant="filled"
+      />
     )
   }
 
@@ -34,11 +48,30 @@ class EventsNew extends Component {
       <form onSubmit={handleSubmit(this.onSubmit)}> 
         <div><Field label="Title" name ="title" type="text" component={this.renderField} /></div>
         <div><Field label="Body" name ="body" type="text" component={this.renderField} /></div>
-        <div>
-          <input type="submit" value="Submit" disabled={pristine || submitting || invalid } />
-          {this.state.submitted && <Navigate to='/' /> }
-          <Link to="/">Cancel</Link>
-        </div>
+        <Button 
+          variant="contained" 
+          label="Submit" 
+          type='Submit'
+          startIcon={<DoneIcon />}
+          disabled={ pristine || submitting || invalid }
+          sx={{ 
+            marginTop : 2,
+            marginLeft : 2
+          }}>
+            Submit
+        </Button>
+        {this.state.submitted && <Navigate to='/' /> }
+        <Button 
+          variant="contained" 
+          label="Cancel"
+          href="/"
+          startIcon={<DeleteIcon />}
+          sx={{ 
+              marginTop : 2,
+              marginLeft : 2
+            }}>
+            Cancel
+        </Button>
       </form>
     )
   }
